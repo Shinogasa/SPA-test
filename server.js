@@ -41,3 +41,19 @@ function serveStatic(response, cache, absPath){
         });
     }
 }
+
+var server = http.createServer(function(request, response) {
+    var filePath = false;
+    if(request.url == '/') {
+        filePath = 'public/index.html';
+    } else {
+        filePath = 'public' + request.url;
+    }
+    var absPath = './' + filePath;
+    serveStatic(response, cache, absPath);
+});
+
+
+server.listen(process.env.PORT, process.env.IP, function() {
+    console.log("Server listening on port process.env.PORT, IP is process.env.IP.");
+});
